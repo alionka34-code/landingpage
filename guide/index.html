@@ -318,20 +318,6 @@ footer a{color:#b5aca2}
 
 <div class="authority"><div class="wrap">Par <b>Alionka Houl</b>, titulaire d'un <b>master en nutrition</b> et ancienne chercheuse en agroalimentaire · auteure de <b>Nutrition Antifragile</b></div></div>
 
-<section class="discover">
-  <div class="narrow">
-    <p class="kicker">Dans ce guide</p>
-    <h2>Les 5 réflexes à remettre en question</h2>
-    <ul class="bullets">
-      <li><b>Arrêtez de chercher à manger équilibré.</b> Pourquoi une assiette qui coche toutes les cases peut vous laisser affamée à 16 h.</li>
-      <li><b>Arrêtez de rentabiliser chaque bouchée.</b> Quand vouloir optimiser chaque repas devient une charge mentale.</li>
-      <li><b>Sortez du manque.</b> Ce que la privation fait réellement à votre faim, et à la place que prend la nourriture dans votre tête.</li>
-      <li><b>Arrêtez de vous reprocher un manque de discipline.</b> Pourquoi ce n'est pas vous qui échouez, mais des méthodes qui n'ont jamais prévu de mauvais jour.</li>
-      <li><b>Arrêtez d'accuser le premier aliment venu.</b> Ballonnements : pourquoi supprimer n'est pas comprendre.</li>
-    </ul>
-    <p style="margin-top:22px">À la fin de chaque réflexe, une seule observation simple à faire. Pas de nouvelles règles : une façon de commencer à comprendre comment vous fonctionnez.</p>
-  </div>
-</section>
 
 <section class="author">
   <div class="wrap author-grid">
@@ -346,27 +332,8 @@ footer a{color:#b5aca2}
   </div>
 </section>
 
-<section class="faq" style="background:var(--paper-2)">
-  <div class="narrow">
-    <p class="kicker">Questions fréquentes</p>
-    <h2>Vous vous demandez peut-être…</h2>
-    <details><summary>Le guide est-il vraiment gratuit ?</summary><p>Oui. Vous laissez votre prénom et votre email, et le guide arrive dans votre boîte mail.</p></details>
-    <details><summary>Sous quelle forme le guide arrive-t-il ?</summary><p>C'est un PDF d'une vingtaine de pages, à lire sur téléphone ou sur ordinateur, en une quinzaine de minutes.</p></details>
-    <details><summary>Est-ce un régime ou un programme ?</summary><p>Non. Le guide ne vous donne pas de nouvelles règles : il vous aide à repérer les réflexes qui vous éloignent de vos propres besoins.</p></details>
-    <details><summary>Que faites-vous de mon email ?</summary><p>Je l'utilise pour vous envoyer le guide et quelques emails pour aller plus loin. Vous pouvez vous désinscrire en un clic, à tout moment.</p></details>
-  </div>
-</section>
 
-<section class="final">
-  <div class="wrap center">
-    <p class="kicker" style="color:var(--gold)">Dernière chose</p>
-    <h2>Comprendre avant d'agir. Observer avant de supprimer.</h2>
-    <p>Quinze minutes de lecture pour commencer à regarder votre alimentation autrement.</p>
-    <a class="btn" href="#guide">Recevoir mon guide offert →</a>
-  </div>
-</section>
 
-<div class="sticky-cta" aria-hidden="true"><a class="btn" href="#guide" tabindex="-1">Recevoir mon guide offert →</a></div>
 
 <footer>
   © 2026 Alionka Houl · Nutrition Antifragile · <a href="#">Mentions légales</a> · <a href="#">Politique de confidentialité</a>
@@ -426,18 +393,6 @@ document.querySelectorAll(".js-optin").forEach(form => {
   });
 });
 
-(function(){
-  const bar = document.querySelector(".sticky-cta");
-  if (!("IntersectionObserver" in window)) return;
-  const visible = new Set();
-  const update = () => bar.classList.toggle("show", visible.size === 0 && window.scrollY > 300);
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(en => en.isIntersecting ? visible.add(en.target) : visible.delete(en.target));
-    update();
-  }, { threshold: 0.15 });
-  document.querySelectorAll(".optin, .final").forEach(b => io.observe(b));
-  window.addEventListener("scroll", update, { passive: true });
-})();
 </script>
 </body>
 </html>
