@@ -525,7 +525,7 @@ forms.forEach(form => {
     btn.disabled = true;
     btn.innerHTML = `Merci ${esc(data.prenom)} ! Redirection vers Amazon…`;
     if (window.fbq) fbq("track", "Lead");   // pixel Meta, s'il est installé
-    setTimeout(() => { window.location.href = AMAZON_URL; }, 400);
+    setTimeout(() => { window.location.href = AMAZON_URL; }, 1500);
   });
 });
 

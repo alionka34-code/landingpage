@@ -33,6 +33,17 @@ async function findContactId(email, apiKey) {
   return match ? match.id : null;
 }
 
+const TAG_NAME = process.env.SYSTEMEIO_TAG_NAME || "book-nutrition-antifragile";
+
+// Retrouve l'ID du tag à partir de son nom (évite de dépendre d'un ID copié à la main)
+async function findTagId(name, apiKey) {
+  const r = await sio(`/tags?query=${encodeURIComponent(name)}&limit=100`, apiKey);
+  const items = (r.body && (r.body.items || r.body["hydra:member"])) || [];
+  const match = items.find(t => (t.name || "").trim().toLowerCase() === name.toLowerCase());
+  if (!match) console.error("Tag introuvable par son nom :", name, r.status, JSON.stringify(r.body).slice(0, 500));
+  return match ? match.id : null;
+}
+
 module.exports = async (req, res) => {
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
@@ -40,9 +51,9 @@ module.exports = async (req, res) => {
   }
 
   const apiKey = process.env.SYSTEMEIO_API_KEY || process.env.SYSTEME_API_KEY;
-  const tagId = Number(process.env.SYSTEMEIO_TAG_ID || process.env.SYSTEME_TAG_ID);
-  if (!apiKey || !tagId) {
-    console.error("SYSTEMEIO_API_KEY ou SYSTEMEIO_TAG_ID manquant");
+  const envTagId = Number(process.env.SYSTEMEIO_TAG_ID || process.env.SYSTEME_TAG_ID) || null;
+  if (!apiKey) {
+    console.error("SYSTEMEIO_API_KEY manquant");
     return res.status(500).json({ ok: false, error: "config" });
   }
 
@@ -85,6 +96,10 @@ module.exports = async (req, res) => {
       console.error("Contact introuvable après 422 :", created.body);
       return res.status(502).json({ ok: false, error: "systemeio_lookup" });
     }
+
+    // Tag : on cherche d'abord par son nom, sinon on prend l'ID des réglages Vercel
+    const tagId = (await findTagId(TAG_NAME, apiKey)) || envTagId;
+    if (!tagId) return res.status(502).json({ ok: false, error: "systemeio_tag_missing" });
 
     // 2. Ajouter le tag (déclenche la règle d'automatisation qui envoie le guide)
     const tagged = await sio(`/contacts/${contactId}/tags`, apiKey, {
