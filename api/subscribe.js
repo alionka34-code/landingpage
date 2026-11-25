@@ -91,6 +91,7 @@ module.exports = async (req, res) => {
       method: "POST",
       body: JSON.stringify({ tagId }),
     });
+    console.log("Ajout du tag", tagId, "au contact", contactId, ":", tagged.status, JSON.stringify(tagged.body));
     // 422 ici = le contact a déjà le tag : ce n'est pas une erreur
     if (tagged.status >= 400 && tagged.status !== 422) {
       console.error("Ajout du tag Systeme.io :", tagged.status, tagged.body);
