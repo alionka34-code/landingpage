@@ -389,12 +389,8 @@ document.querySelectorAll(".js-optin").forEach(form => {
       msg.style.display = "block";
       return;
     }
-    const box = form.closest(".optin");
-    box.querySelector(".js-name").textContent = data.prenom;
-    form.hidden = true;
-    box.querySelector(".thanks").hidden = false;
     if (window.fbq) fbq("track", "Lead");
-    box.scrollIntoView({ behavior: "smooth", block: "center" });
+    window.location.href = "/guide/merci/?p=" + encodeURIComponent(data.prenom);
   });
 });
 
